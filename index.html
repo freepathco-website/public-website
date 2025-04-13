@@ -78,6 +78,54 @@
             color: #fff;
         }
 
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 10px;
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            z-index: 101;
+            background-color: #ecf0f1;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .hamburger div {
+            width: 22px;
+            height: 3px;
+            background-color: #2c3e50;
+            margin: 3px 0;
+            transition: 0.4s;
+        }
+
+        .mobile-nav {
+            display: none;
+            flex-direction: column;
+            background-color: #D1D5DB;
+            position: absolute;
+            top: 60px;
+            right: 0;
+            width: 100%;
+            text-align: center;
+            z-index: 100;
+        }
+
+        .mobile-nav a {
+            padding: 12px;
+            border-top: 1px solid #ccc;
+            text-decoration: none;
+            font-weight: 600;
+            color: #2c3e50;
+            background-color: #f1f1f1;
+        }
+
+        .mobile-nav a:hover {
+            background-color: #2c3e50;
+            color: #fff;
+        }
+
         section {
             padding: 60px 8%;
             max-width: 1200px;
@@ -112,6 +160,8 @@
             position: relative;
             overflow: hidden;
             border-radius: 8px;
+            width: 100%;
+            max-width: 100%;
         }
 
         .carousel-images {
@@ -171,6 +221,52 @@
             text-align: center;
             font-weight: 500;
         }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 28px;
+            }
+
+            .navbar {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .mobile-nav.show {
+                display: flex;
+            }
+
+            .navbar a {
+                padding: 10px 15px;
+                font-size: 14px;
+            }
+
+            section {
+                padding: 40px 5%;
+                margin: 20px auto;
+            }
+
+            section h2 {
+                font-size: 24px;
+            }
+
+            .carousel-buttons {
+                padding: 0 5px;
+            }
+
+            .carousel-button {
+                padding: 10px;
+                font-size: 20px;
+            }
+
+            .contact-info p,
+            section p {
+                font-size: 14px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -185,6 +281,18 @@
     </h1>
     <p>Luxury Single Family Home Builds</p>
 </header>
+
+<div class="hamburger" onclick="toggleMobileNav()">
+    <div></div>
+    <div></div>
+    <div></div>
+</div>
+<nav class="mobile-nav" id="mobileNav">
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#projects">Past Projects</a>
+    <a href="#contact">Contact</a>
+</nav>
 
 <nav class="navbar">
     <a href="#about">About</a>
@@ -257,6 +365,17 @@
     function prevSlide() {
         showSlide(currentSlide -= 1);
     }
+
+    function toggleMobileNav() {
+        const nav = document.getElementById('mobileNav');
+        nav.classList.toggle('show');
+    }
+
+    document.querySelectorAll('.mobile-nav a').forEach(link => {
+        link.addEventListener('click', () => {
+            document.getElementById('mobileNav').classList.remove('show');
+        });
+    });
 
     setInterval(() => {
         nextSlide();
